@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "aqua"
+version = "0.1.0"
+description = "A Telegram bot for personal utilities"
+authors = ["Guilherme-Vasconcelos"]
+license = "AGPL-3.0-or-later"
+
+[tool.poetry.scripts]
+aqua = 'aqua.cli:main'
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-telegram-bot = "^13.6"
+click = "^8.0.1"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.902"
+flake8 = "^3.9.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,7 @@
+{
+    "name": "Your PostgreSQL database name here",
+    "user": "Your user here",
+    "password": "Your password here",
+    "host": "Your host here",
+    "port": "Your port here"
+}

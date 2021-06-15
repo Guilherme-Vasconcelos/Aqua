@@ -1,0 +1,21 @@
+# Aqua
+Aqua is a Telegram bot for personal utilities.
+
+### Installation
+1. Prerequisites: Install Poetry for managing dependencies and fork/clone the repository.
+All commands and files below will assume you are at the project's root directory.
+2. Create your Telegram bot by [speaking to Botfather](https://t.me/botfather).
+3. Rename `config/db.example.json` and `config/bot.example.json` respectively to
+`config/db.json` and `config/bot.json`. Also, replace the data in those files with
+your actual data.
+4. Create a virtual environment and install dependencies by running `python3 -m venv .venv`
+and `poetry install`.
+5. Ensure you are using the local Python with `poetry shell` and then run `aqua` to start
+the bot. Optionally, you may use the `--debug` flag.
+
+### Adding new commands
+Check out the README located at `aqua/extensions/commands`.
+
+### License
+Aqua is licensed under the GNU Affero General Public License, either version 3
+or any later versions. Please refer to LICENSE for more details.
