@@ -1,2 +1,9 @@
-def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Hello! This is the start command")
+from telegram import Update
+from telegram.ext.callbackcontext import CallbackContext
+
+from aqua.extensions.checks import authorize
+
+
+@authorize
+def start(update: Update, context: CallbackContext):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome!")
