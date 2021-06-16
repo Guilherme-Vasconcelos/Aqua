@@ -13,6 +13,9 @@ usage, if you do not supply a user_chat_id Aqua will answer to anyone who messag
 and `poetry install`.
 5. Ensure you are using the local Python with `poetry shell` and then run `aqua` to start
 the bot. Optionally, you may use the `--debug` flag.
+6. (OPTIONAL) After everything is set up, you can execute the `prepare_git_hooks.sh` script
+to create the Git hooks. This is only useful for development, so you should probably not need
+to do that if you only want to run Aqua.
 
 ### Adding new commands
 Check out the README located at `aqua/extensions/commands`.
