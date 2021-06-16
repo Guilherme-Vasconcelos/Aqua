@@ -15,10 +15,7 @@ def main(debug: bool = False) -> None:
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
 
-    logging.info('Creating bot instance.')
     bot = Bot(BOT_TOKEN)
-
-    logging.info('Instance created. Starting bot.')
     bot.start_polling()
 
 

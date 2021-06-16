@@ -20,6 +20,7 @@ exec(imports)
 
 class Bot:
     def __init__(self, token: str) -> None:
+        logging.info('Creating bot instance')
         self.updater = Updater(token=token)
         self.dispatcher = self.updater.dispatcher
 
@@ -29,4 +30,6 @@ class Bot:
             self.dispatcher.add_handler(handler)
 
             logging.info(f'Successfully loaded command \'{command}\'')
+
+        logging.info('Starting bot')
         self.updater.start_polling()
