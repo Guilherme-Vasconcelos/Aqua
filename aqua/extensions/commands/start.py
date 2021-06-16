@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
-from aqua.extensions.checks import authorize
+from aqua.checks import authorize
 
 
 @authorize
