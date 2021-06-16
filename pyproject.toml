@@ -14,7 +14,7 @@ python-telegram-bot = "^13.6"
 click = "^8.0.1"
 
 [tool.poetry.dev-dependencies]
-mypy = "^0.902"
+mypy = "^0.812"
 flake8 = "^3.9.2"
 
 [build-system]
