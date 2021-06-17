@@ -13,8 +13,17 @@ def is_authorized(update: Update) -> bool:
     if not isinstance(chat, Chat):
         return False
 
-    if chat.id == USER_CHAT_ID or USER_CHAT_ID is None:
+    if chat.id == USER_CHAT_ID:
         logging.info(f'Authorizing user: {chat.id}.')
+        return True
+
+    if USER_CHAT_ID is None:
+        logging.warn(
+            f'Received a message from \'{chat.id}\', but user_chat_id is None. '
+            'Bot is assumed to be public, so user will be authorized. If you want '
+            'to change this behaviour, set up a user_chat_id in config/bot.json.'
+        )
+
         return True
 
     logging.warn(f'Unauthorizing invalid user: {chat.id}.')

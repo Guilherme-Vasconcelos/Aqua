@@ -7,3 +7,5 @@ do
     file_basename=$(basename "$file")
     chmod +x "./.git/hooks/$file_basename"
 done
+
+echo "All hooks copied successfully!"
