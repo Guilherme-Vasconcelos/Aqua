@@ -21,7 +21,7 @@ def is_authorized(update: Update) -> bool:
     return False
 
 
-def authorize(command: Callable):
+def authorize(command: Callable) -> Callable:
     @wraps(command)
     def wrapper(*args, **kwargs):
         for arg in args:

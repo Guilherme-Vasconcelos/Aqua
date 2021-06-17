@@ -11,7 +11,7 @@ class JobQueue:
         self._queue = Queue()
         logging.debug('Job queue initialized successfully.')
 
-    def append_job(self, job: Callable, schedule: float):
+    def append_job(self, job: Callable, schedule: float) -> None:
         # Schedule comes from time.time, which gives a date in milisseconds.
         logging.debug(
             f'Appending job \'{job.__name__}\', which is scheduled to {schedule}.'
@@ -22,7 +22,7 @@ class JobQueue:
             'schedule': schedule
         })
 
-    async def begin_executing(self):
+    async def begin_executing(self) -> None:
         while True:
             if self._queue.empty():
                 logging.debug(
@@ -31,7 +31,7 @@ class JobQueue:
                 )
             else:
                 logging.debug('Executing available jobs in job queue.')
-                new_queue = Queue()
+                new_queue: Queue = Queue()
                 while not self._queue.empty():
                     now = time()
                     job = self._queue.get()

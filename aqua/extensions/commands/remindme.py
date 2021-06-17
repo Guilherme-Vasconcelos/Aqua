@@ -13,7 +13,7 @@ add_to_event_loop_before_start(remindme_job_queue.begin_executing)
 
 
 @authorize
-def remindme(update: Update, context: CallbackContext):
+def remindme(update: Update, context: CallbackContext) -> None:
     args = context.args
     delay_amount, delay_unit, *reminder = args
     chat_id = update.effective_chat.id

@@ -7,7 +7,7 @@ from aqua.checks import authorize
 
 
 @authorize
-def start(update: Update, context: CallbackContext):
+def start(update: Update, context: CallbackContext) -> None:
     message_to_send = 'Welcome!'
     chat_to_send = update.effective_chat.id
     logging.info(f'Sending message \'{message_to_send}\' to authorized user \'{chat_to_send}\'')

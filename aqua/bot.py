@@ -33,7 +33,7 @@ class Bot:
         self.updater = Updater(token=token)
         self.dispatcher = self.updater.dispatcher
 
-    async def start_polling(self):
+    async def start_polling(self) -> None:
         for command in command_extensions:
             handler = CommandHandler(command, globals()[command])
             self.dispatcher.add_handler(handler)
