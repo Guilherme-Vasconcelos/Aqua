@@ -11,6 +11,7 @@ def add_to_event_loop_before_start(func: Callable) -> None:
         logging.critical(f'Could not add \'{func.__name__}\' to event loop: it is already running.')
     else:
         event_loop.create_task(func())
+        logging.debug(f'Successfully added \'{func.__name__}\' to event loop.')
 
 
 def start_event_loop() -> None:

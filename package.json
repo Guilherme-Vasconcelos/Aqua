@@ -6,7 +6,7 @@
   "license": "AGPL-3.0-or-later",
   "private": false,
   "scripts": {
-    "aqua": "nodemon -e py --exec aqua"
+    "aqua": "nodemon -e py --exec poetry run aqua"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
