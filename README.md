@@ -37,5 +37,7 @@ about 10 minutes.
 More commands will be added soon!
 
 ### License
+Copyright 2021 Guilherme-Vasconcelos
+
 Aqua is licensed under the GNU Affero General Public License, either version 3
 or any later versions. Please refer to LICENSE for more details.
