@@ -14,10 +14,10 @@ def is_authorized(update: Update) -> bool:
         return False
 
     if chat.id == USER_CHAT_ID or USER_CHAT_ID is None:
-        logging.info(f'Authorizing user: {chat.id}')
+        logging.info(f'Authorizing user: {chat.id}.')
         return True
 
-    logging.warn(f'Unauthorizing invalid user: {chat.id}')
+    logging.warn(f'Unauthorizing invalid user: {chat.id}.')
     return False
 
 

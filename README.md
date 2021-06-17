@@ -16,6 +16,9 @@ the bot. Optionally, you may use the `--debug` flag.
 6. (OPTIONAL) After everything is set up, you can execute the `prepare_git_hooks.sh` script
 to create the Git hooks. This is only useful for development, so you should probably not need
 to do that if you only want to run Aqua.
+7. (OPTIONAL) For development, instead of executing `aqua` directly, run `yarn install`
+(requires [yarn](https://yarnpkg.com/)) and then `yarn aqua`. This way nodemon will automatically
+restart the server when changes are detected.
 
 ### Adding new commands
 Check out the README located at `aqua/extensions/commands`.
