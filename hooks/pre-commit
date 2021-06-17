@@ -14,9 +14,10 @@ do
         exit 1
     else
         authorize_line=$(cat "$file" | grep -n @authorize | cut -d ':' -f 1)
-        command_line=$(cat "$file" | grep -n "$command_name" | cut -d ':' -f 1)
-        if (( "$command_line" != "$authorize_line" + 1 ))
+        command_line=$(cat "$file" | grep -n "def $command_name" | cut -d ':' -f 1)
+        if [[ "$command_line" != $(( "$authorize_line" + 1 )) ]]
         then
+            echo $command_line
             echo "Pre-commit hook failed: $file is using a misplaced authorize."
             exit 1
         fi

@@ -5,6 +5,15 @@ from os.path import dirname, basename, isfile, join
 
 from telegram.ext import CommandHandler, Updater
 
+from aqua.utils import has_flag
+
+if not has_flag('help'):
+    logging_level = logging.DEBUG if has_flag('debug') else logging.INFO
+    logging.basicConfig(
+        level=logging_level,
+        format='%(asctime)s - %(levelname)s - %(message)s'
+    )
+
 # Dynamically importing all command extensions
 command_extensions_files = glob.glob(join(dirname(__file__) + '/extensions/commands', "*.py"))
 command_extensions = [
