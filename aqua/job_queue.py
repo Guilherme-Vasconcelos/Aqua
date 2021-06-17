@@ -1,3 +1,19 @@
+# Copyright 2021 Guilherme-Vasconcelos
+# This file is part of Aqua.
+#
+# Aqua is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Aqua is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
+
 import asyncio
 import logging
 
@@ -11,7 +27,7 @@ class JobQueue:
         self._queue = Queue()
         logging.debug('Job queue initialized successfully.')
 
-    def append_job(self, job: Callable, schedule: float):
+    def append_job(self, job: Callable, schedule: float) -> None:
         # Schedule comes from time.time, which gives a date in milisseconds.
         logging.debug(
             f'Appending job \'{job.__name__}\', which is scheduled to {schedule}.'
@@ -22,7 +38,7 @@ class JobQueue:
             'schedule': schedule
         })
 
-    async def begin_executing(self):
+    async def begin_executing(self) -> None:
         while True:
             if self._queue.empty():
                 logging.debug(
@@ -31,7 +47,7 @@ class JobQueue:
                 )
             else:
                 logging.debug('Executing available jobs in job queue.')
-                new_queue = Queue()
+                new_queue: Queue = Queue()
                 while not self._queue.empty():
                     now = time()
                     job = self._queue.get()

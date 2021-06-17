@@ -14,23 +14,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
-import logging
-
-from sys import argv
-
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
-
-def has_flag(full_flag: str) -> bool:
-    if '--' + full_flag in argv:
-        return True
-
-    return '-' + full_flag[0] in argv
+from aqua.checks import authorize
+from aqua.utils import logged_send_message
 
 
-def logged_send_message(update: Update, context: CallbackContext, message: str) -> None:
-    chat_id = update.effective_chat.id
-    logging.info(f'Sending message \'{message}\' to user \'{chat_id}\'.')
+@authorize
+def help(update: Update, context: CallbackContext) -> None:
+    msg = 'Hello! Here are the commands I am able to run:\n\n'
 
-    context.bot.send_message(chat_id=chat_id, text=message)
+    msg += '/help - display this message\n'
+
+    msg += '/remindme <time> <time_unit> <message> - get yourself a reminder about <message> '
+    msg += 'after the specified time\n\n'
+
+    msg += 'Learn more at: https://github.com/Guilherme-Vasconcelos/Aqua'
+
+    logged_send_message(update, context, msg)
