@@ -50,7 +50,17 @@ def remindme(update: Update, context: CallbackContext) -> None:
 
         return
 
-    when_to_execute_task = time() + multiply_factor * float(delay_amount)
+    try:
+        when_to_execute_task = time() + multiply_factor * float(delay_amount)
+    except ValueError:
+        logged_send_message(
+            update,
+            context,
+            f'Sorry, I could not understand what the value \'{delay_amount}\' means.'
+            ' Try again!'
+        )
+
+        return
 
     def job():
         text_to_send = f'Hello! Here is your reminder: {" ".join(reminder)}'
