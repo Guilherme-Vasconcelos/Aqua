@@ -34,14 +34,10 @@ def remindme(update: Update, context: CallbackContext) -> None:
     args = context.args
     delay_amount, delay_unit, *reminder = args
 
-    multiply_factor = None
-    if delay_unit == 'minute':
-        multiply_factor = 60
-    elif delay_unit == 'hour':
-        multiply_factor = 60 * 60
-    elif delay_unit == 'day':
-        multiply_factor = 60 * 60 * 24
-    else:
+    multiply_factors = {'minute': 60, 'hour': 60 * 60, 'day': 60 * 60 * 24}
+    multiply_factor = multiply_factors.get(delay_unit)
+
+    if multiply_factor is None:
         logged_send_message(
             update,
             context,
