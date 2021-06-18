@@ -15,6 +15,7 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 import glob
+import importlib
 import logging
 
 from os.path import dirname, basename, isfile, join
@@ -36,11 +37,11 @@ command_extensions = [
     basename(f)[:-3] for f in command_extensions_files if isfile(f) and not f.endswith('__init__.py')
 ]
 
-imports = ''
+command_functions = {}
 for command_extension in command_extensions:
-    imports += f'from aqua.extensions.commands.{command_extension} import {command_extension}\n'
-
-exec(imports)
+    module = importlib.import_module(f'aqua.extensions.commands.{command_extension}')
+    command_function = getattr(module, command_extension)
+    command_functions[command_extension] = command_function
 
 
 class Bot:
@@ -51,7 +52,7 @@ class Bot:
 
     async def start_polling(self) -> None:
         for command in command_extensions:
-            handler = CommandHandler(command, globals()[command])
+            handler = CommandHandler(command, command_functions[command])
             self.dispatcher.add_handler(handler)
 
             logging.debug(f'Successfully loaded command \'{command}\'.')
