@@ -2,11 +2,16 @@
 
 readonly PROJECT_ROOT_DIR=$(git rev-parse --show-toplevel)
 readonly COMMANDS_DIR="$PROJECT_ROOT_DIR/aqua/extensions/commands"
+readonly HELP_COMMAND_FILE="help.py"
 
 cd "$COMMANDS_DIR"
 files_to_analyze=$(ls | grep ".*\.py" | grep -v '__init__.py')
 for file in $files_to_analyze
 do
+    # TODO:
+    # This script can be improved. Currently it doesn't check if the line is
+    # commented, so an # @authorize would be counted as valid.
+
     command_name=$(echo "$file" | cut -f 1 -d '.')
     if [[ $(cat "$file" | grep @authorize | wc -l) == 0 ]]
     then
@@ -21,5 +26,11 @@ do
             echo "Pre-commit hook failed: $file is using a misplaced authorize."
             exit 1
         fi
+    fi
+
+    if [[ $(cat "$HELP_COMMAND_FILE" | grep  "/$command_name" | wc -l) == 0 ]]
+    then
+        echo "Pre-commit hook failed: $command_name was not described in $HELP_COMMAND_FILE."
+        exit 1
     fi
 done
