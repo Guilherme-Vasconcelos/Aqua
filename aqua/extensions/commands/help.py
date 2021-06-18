@@ -25,6 +25,8 @@ from aqua.utils import logged_send_message
 def help(update: Update, context: CallbackContext) -> None:
     msg = 'Hello! Here are the commands I am able to run:\n\n'
 
+    msg += '/start - send a welcome message\n'
+
     msg += '/help - display this message\n'
 
     msg += '/remindme <time> <time_unit> <message> - get yourself a reminder about <message> '
