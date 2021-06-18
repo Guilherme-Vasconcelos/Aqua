@@ -39,5 +39,15 @@ More commands will be added soon!
 ### License
 Copyright 2021 Guilherme-Vasconcelos
 
-Aqua is licensed under the GNU Affero General Public License, either version 3
-or any later versions. Please refer to LICENSE for more details.
+Aqua is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Aqua is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
