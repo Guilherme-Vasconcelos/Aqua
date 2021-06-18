@@ -25,6 +25,7 @@ from typing import Callable
 class JobQueue:
     def __init__(self):
         self._queue = Queue()
+        self._job_queue_delay = 15
         logging.debug('Job queue initialized successfully.')
 
     def append_job(self, job: Callable, schedule: float) -> None:
@@ -57,4 +58,4 @@ class JobQueue:
                         new_queue.put(job)
                 self._queue = new_queue
 
-            await asyncio.sleep(60)
+            await asyncio.sleep(self._job_queue_delay)
