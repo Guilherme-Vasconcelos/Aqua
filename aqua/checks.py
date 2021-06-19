@@ -25,6 +25,27 @@ from aqua.constants import USER_CHAT_ID
 
 
 def is_authorized(update: Update) -> bool:
+    """
+    Checks if a Telegram update came from an authorized user.
+
+    Parameters
+    ----------
+    update: telegram.Update
+
+    Returns
+    -------
+    bool
+        Whether the user is authorized or not.
+
+    Notes
+    -----
+    If user has not set their user_chat_id, this function will always return true, because in this
+    case Aqua is assumed to be a public bot.
+
+    See Also
+    --------
+    aqua.checks.authorize
+    """
     chat = update.effective_chat
     if not isinstance(chat, Chat):
         return False
@@ -47,6 +68,26 @@ def is_authorized(update: Update) -> bool:
 
 
 def authorize(command: Callable) -> Callable:
+    """
+    A decorator meant to be used to easily authorize new functions.
+
+    Parameters
+    ----------
+    command : Callable
+        Your command function, which should receive as parameters a telegram.Update and
+        a telegram.ext.callbackcontext.CallbackContext.
+
+    Returns
+    -------
+    Callable
+        A function that executes:
+            - Your original command if the user is authorized; or
+            - Nothing if the user is not authorized.
+
+    See Also
+    --------
+    aqua.checks.is_authorized
+    """
     @wraps(command)
     def wrapper(*args, **kwargs):
         for arg in args:
