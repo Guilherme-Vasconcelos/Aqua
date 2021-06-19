@@ -24,6 +24,23 @@ from telegram.ext.callbackcontext import CallbackContext
 
 
 def has_flag(full_flag: str) -> bool:
+    """
+    Checks whether a given flag was passed to the program when executing it.
+
+    Parameters
+    ----------
+    full_flag : str
+        The full version of the flag. For example: '--debug'.
+
+    Returns
+    -------
+    bool
+        Whether `full_flag`, or a shortened version of it, was passed to the program.
+
+    Notes
+    -----
+    The shortened version of the full_flag is always assumed to be a dash, then its first character.
+    """
     if '--' + full_flag in argv:
         return True
 
@@ -31,6 +48,16 @@ def has_flag(full_flag: str) -> bool:
 
 
 def logged_send_message(update: Update, context: CallbackContext, message: str) -> None:
+    """
+    Sends a Telegram message and logs it into the terminal.
+
+    Parameters
+    ----------
+    update : telegram.Update
+    context : telegram.ext.callbackcontext.CallbackContext
+    message : str
+        The message which will be sent.
+    """
     chat_id = update.effective_chat.id
     logging.info(f'Sending message \'{message}\' to user \'{chat_id}\'.')
 
@@ -38,8 +65,25 @@ def logged_send_message(update: Update, context: CallbackContext, message: str) 
 
 
 def safe_randint(lower_bound: int, upper_bound: int) -> int:
-    # This function's parameters are inclusive.
-    # Usually, there are no problems on using the secrets.randint method
-    # (unless it is being used for cryptographic reasons). However,
-    # Bandit will not allow using it, so this function is used instead.
+    """
+    Generates a cryptographically safe random integer.
+
+    Parameters
+    ----------
+    lower_bound : int
+        The inclusive lower bound for the random number.
+    upper_bound : int
+        The inclusive upper bound for the random number.
+
+    Returns
+    -------
+    A cryptographically safe random integer in the interval [lower_bound, upper_bound].
+
+    Notes
+    -----
+    Although you shouldn't need to always use this function, a random.randint secret will
+    probably not pass the CI security check (by Bandit).
+    Because of that, it is recommended to use `safe_randint` even if your code is not related to
+    cryptography.
+    """
     return secrets.choice(range(lower_bound, upper_bound + 1))

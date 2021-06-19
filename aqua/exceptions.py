@@ -14,28 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
-import logging
-
-from typing import NoReturn
-
-import click
-
-from aqua.async_utils import add_to_event_loop_before_start, start_event_loop
-from aqua.bot import Bot
-from aqua.constants import BOT_TOKEN
-
-
-@click.command()
-@click.option('--debug', '-d', default=False, help='Debug mode', is_flag=True)
-def main(debug: bool) -> NoReturn:
-    bot = Bot(BOT_TOKEN)
-    logging.debug('Setting up event loop for Job Queue and Bot.')
-
-    add_to_event_loop_before_start(bot.start_polling)
-
-    logging.debug('Starting to run event loop tasks.')
-    start_event_loop()
-
-
-if __name__ == '__main__':
-    main()
+class AquaInterruptedError(Exception):
+    """Raised when Aqua's components such as event loop are unexpectedly terminated."""
+    pass

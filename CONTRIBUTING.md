@@ -17,6 +17,9 @@ terminal, which will copy the hooks (such as pre-commit) to the correct git dire
 ### Adding new commands
 Check out the README located at `aqua/extensions/commands`.
 
+### See also
+1. Docstring conventions: https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard
+
 ### License
 By contributing, you agree that all your modifications and additions will be
 licensed under the GNU Affero General Public License, either version 3 or

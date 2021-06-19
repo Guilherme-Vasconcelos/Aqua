@@ -51,6 +51,7 @@ class Bot:
         self.dispatcher = self.updater.dispatcher
 
     async def start_polling(self) -> None:
+        """Start polling Telegram for bot updates."""
         for command in command_extensions:
             handler = CommandHandler(command, command_functions[command])
             self.dispatcher.add_handler(handler)

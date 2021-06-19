@@ -19,17 +19,31 @@ import logging
 
 from queue import Queue
 from time import time
-from typing import Callable
+from typing import Callable, NoReturn
 
 
 class JobQueue:
-    def __init__(self):
-        self._queue = Queue()
-        self._job_queue_delay = 15
-        logging.debug('Job queue initialized successfully.')
+    def __init__(self, job_queue_delay: int):
+        self._queue: Queue = Queue()
+        self._job_queue_delay = job_queue_delay
+        logging.debug(f'Job queue initialized successfully with delay set to {self._job_queue_delay}.')
 
     def append_job(self, job: Callable, schedule: float) -> None:
-        # Schedule comes from time.time, which gives a date in milisseconds.
+        """
+        Appends a job to be executed by the instance of JobQueue.
+
+        Parameters
+        ----------
+        job: Callable
+            The function which will be executed
+        schedule: float
+            When to execute the function. Precisely, this must be a time in milisseconds. Your job will be executed
+            if a call to time.time() is greater than or equal to `schedule`.
+
+        See Also
+        --------
+        time.time
+        """
         logging.debug(
             f'Appending job \'{job.__name__}\', which is scheduled to {schedule}.'
         )
@@ -39,7 +53,8 @@ class JobQueue:
             'schedule': schedule
         })
 
-    async def begin_executing(self) -> None:
+    async def begin_executing(self) -> NoReturn:
+        """Starts executing the Job Queue."""
         while True:
             if self._queue.empty():
                 logging.debug(

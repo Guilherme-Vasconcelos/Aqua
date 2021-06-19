@@ -24,7 +24,7 @@ from aqua.checks import authorize
 from aqua.job_queue import JobQueue
 from aqua.utils import logged_send_message
 
-remindme_job_queue = JobQueue()
+remindme_job_queue = JobQueue(15)
 
 add_to_event_loop_before_start(remindme_job_queue.begin_executing)
 
