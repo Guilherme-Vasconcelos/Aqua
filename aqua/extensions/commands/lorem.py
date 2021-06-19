@@ -18,13 +18,13 @@
 # Thanks lipsum.com (by James Wilson) for the sentences.
 # Check it out his website: https://lipsum.com/
 
-from random import choice, randint
+from secrets import choice
 
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
 from aqua.checks import authorize
-from aqua.utils import logged_send_message
+from aqua.utils import logged_send_message, safe_randint
 
 lorem_sentences = [
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -55,7 +55,7 @@ def lorem(update: Update, context: CallbackContext) -> None:
         return
 
     paragraph = ''
-    number_of_sentences = randint(6, 13)
+    number_of_sentences = safe_randint(6, 12)
     for i in range(number_of_sentences):
         if i == 0:
             sentence = lorem_sentences[0]
