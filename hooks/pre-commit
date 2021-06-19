@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 readonly PROJECT_ROOT_DIR=$(git rev-parse --show-toplevel)
 readonly COMMANDS_DIR="$PROJECT_ROOT_DIR/aqua/extensions/commands"
