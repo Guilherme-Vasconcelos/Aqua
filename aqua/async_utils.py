@@ -17,7 +17,9 @@
 import asyncio
 import logging
 
-from typing import Callable
+from typing import Callable, NoReturn
+
+from aqua.exceptions import AquaInterruptedError
 
 
 def add_to_event_loop_before_start(func: Callable) -> None:
@@ -30,7 +32,9 @@ def add_to_event_loop_before_start(func: Callable) -> None:
         logging.debug(f'Successfully added \'{func.__name__}\' to event loop.')
 
 
-def start_event_loop() -> None:
+def start_event_loop() -> NoReturn:
     logging.info('Started event loop.')
     event_loop = asyncio.get_event_loop()
     event_loop.run_forever()
+
+    raise AquaInterruptedError('Aqua\'s main event loop was terminated.')

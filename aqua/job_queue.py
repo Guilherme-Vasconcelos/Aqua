@@ -19,7 +19,7 @@ import logging
 
 from queue import Queue
 from time import time
-from typing import Callable
+from typing import Callable, NoReturn
 
 
 class JobQueue:
@@ -39,7 +39,7 @@ class JobQueue:
             'schedule': schedule
         })
 
-    async def begin_executing(self) -> None:
+    async def begin_executing(self) -> NoReturn:
         while True:
             if self._queue.empty():
                 logging.debug(

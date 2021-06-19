@@ -16,6 +16,8 @@
 
 import logging
 
+from typing import NoReturn
+
 import click
 
 from aqua.async_utils import add_to_event_loop_before_start, start_event_loop
@@ -25,7 +27,7 @@ from aqua.constants import BOT_TOKEN
 
 @click.command()
 @click.option('--debug', '-d', default=False, help='Debug mode', is_flag=True)
-def main(debug: bool) -> None:
+def main(debug: bool) -> NoReturn:
     bot = Bot(BOT_TOKEN)
     logging.debug('Setting up event loop for Job Queue and Bot.')
 
