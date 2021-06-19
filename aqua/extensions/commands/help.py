@@ -29,6 +29,8 @@ def help(update: Update, context: CallbackContext) -> None:
 
     msg += '/help - display this message\n'
 
+    msg += '/lorem - generate one paragraph of Lorem Ipsum text\n'
+
     msg += '/remindme <time> <time_unit> <message> - get yourself a reminder about <message> '
     msg += 'after the specified time\n\n'
 
