@@ -15,6 +15,7 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
+import secrets
 
 from sys import argv
 
@@ -34,3 +35,11 @@ def logged_send_message(update: Update, context: CallbackContext, message: str) 
     logging.info(f'Sending message \'{message}\' to user \'{chat_id}\'.')
 
     context.bot.send_message(chat_id=chat_id, text=message)
+
+
+def safe_randint(lower_bound: int, upper_bound: int) -> int:
+    # This function's parameters are inclusive.
+    # Usually, there are no problems on using the secrets.randint method
+    # (unless it is being used for cryptographic reasons). However,
+    # Bandit will not allow using it, so this function is used instead.
+    return secrets.choice(range(lower_bound, upper_bound + 1))

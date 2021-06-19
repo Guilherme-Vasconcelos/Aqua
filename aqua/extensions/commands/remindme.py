@@ -31,6 +31,11 @@ add_to_event_loop_before_start(remindme_job_queue.begin_executing)
 
 @authorize
 def remindme(update: Update, context: CallbackContext) -> None:
+    # TODO: replace this with a decorator which ensures length of context.args
+    if len(context.args) < 3:
+        logged_send_message(update, context, 'Invalid number of arguments. Check the \'/help\' command for more info.')
+        return
+
     args = context.args
     delay_amount, delay_unit, *reminder = args
 

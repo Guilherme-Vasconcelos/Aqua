@@ -33,6 +33,7 @@ correctly.
 - `/remindme <time> <time_unit> <message>`: reminds you about \<message> after the given amount of
 time. For example: `/remindme 10 minute Get pizza in the oven` will remind you about the pizza in
 about 10 minutes.
+- `/lorem`: generates one paragraph of Lorem Ipsum text.
 
 More commands will be added soon!
 

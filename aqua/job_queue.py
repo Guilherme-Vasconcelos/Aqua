@@ -44,7 +44,7 @@ class JobQueue:
             if self._queue.empty():
                 logging.debug(
                     'Job queue attempted to execute available jobs, but there are none. '
-                    'Attempting again in 60 seconds.'
+                    f'Attempting again in {self._job_queue_delay} seconds.'
                 )
             else:
                 logging.debug('Executing available jobs in job queue.')

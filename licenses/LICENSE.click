@@ -1,3 +1,8 @@
+License terms obtained from:
+https://github.com/pallets/click/blob/d64eddae7d59cebd24b5100d72147fcf2e7cd1dc/LICENSE.rst
+
+------------------------------------------------------------------
+
 Copyright 2014 Pallets
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
