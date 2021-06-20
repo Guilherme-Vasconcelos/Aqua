@@ -20,8 +20,9 @@ import logging
 
 from os.path import dirname, basename, isfile, join
 
-from telegram.ext import CommandHandler, Updater
+from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
+from aqua.extensions.talk.talk import talk as talk_handler_command
 from aqua.utils import has_flag
 
 if not has_flag('help'):
@@ -57,6 +58,10 @@ class Bot:
             self.dispatcher.add_handler(handler)
 
             logging.debug(f'Successfully loaded command \'{command}\'.')
+
+        talk_handler = MessageHandler(Filters.text & (~Filters.command), talk_handler_command)
+        self.dispatcher.add_handler(talk_handler)
+        logging.debug('Successfully loaded the talk handler.')
 
         logging.info('Starting bot.')
         self.updater.start_polling()

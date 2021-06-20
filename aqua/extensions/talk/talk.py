@@ -22,21 +22,5 @@ from aqua.utils import logged_send_message
 
 
 @authorize
-def help(update: Update, context: CallbackContext) -> None:
-    msg = 'Hello! Here are the commands I am able to run:\n\n'
-
-    msg += '/help - display this message\n'
-
-    msg += '/lorem - generate one paragraph of Lorem Ipsum text\n'
-
-    msg += '/remindme <time> <time_unit> <message> - get yourself a reminder about <message> '
-    msg += 'after the specified time\n\n'
-
-    msg += '/sort <list of elements> - sort your elements, either alphabetically or numerically '
-    msg += 'depending on their type. For example: `/sort 1 5 2` or `/sort myword1 second_word`\n\n'
-
-    msg += '/start - send a welcome message\n'
-
-    msg += 'Learn more at: https://github.com/Guilherme-Vasconcelos/Aqua'
-
-    logged_send_message(update, context, msg)
+def talk(update: Update, context: CallbackContext):
+    logged_send_message(update, context, 'Sorry, I don\'t have an answer for that yet!')
