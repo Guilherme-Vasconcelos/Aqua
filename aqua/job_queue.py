@@ -16,10 +16,13 @@
 
 import asyncio
 import logging
+import pickle
 
 from queue import Queue
 from time import time
 from typing import Callable, NoReturn
+
+JOB_QUEUE_DUMP_FILE = '.job_queue_cache'
 
 
 class JobQueue:
@@ -73,7 +76,16 @@ class JobQueue:
                         new_queue.put(job)
                 self._queue = new_queue
 
+                logging.debug('Finished executing available jobs. Creating .job_queue_cache.')
+                self.dump_to_file()
+
             await asyncio.sleep(self._job_queue_delay)
+
+    def dump_to_file(self):
+        """Dumps the Job Queue to a file if it is not empty."""
+        if not self._queue.empty():
+            with open(JOB_QUEUE_DUMP_FILE, 'wb') as f:
+                pickle.dump(self._queue, f)  # FIXME: pickle does not seem to be able to dump _queue.
 
     def __repr__(self) -> str:
         # FIXME: it would be better to show the entire function (to be executed) instead of
