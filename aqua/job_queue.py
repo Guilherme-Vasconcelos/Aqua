@@ -74,3 +74,23 @@ class JobQueue:
                 self._queue = new_queue
 
             await asyncio.sleep(self._job_queue_delay)
+
+    def __repr__(self) -> str:
+        # FIXME: it would be better to show the entire function (to be executed) instead of
+        # only its name. However, I could not get `inspect.getsource` to work here, so we
+        # will have to go with only the function name for now.
+        if self._queue.empty():
+            return '[]'
+
+        _repr = '[\n'
+
+        for job in self._queue.queue:
+            _repr += '    {\n'
+            _repr += f'       job: {job["job"].__name__}\n'
+            _repr += f'       schedule: {job["schedule"]}\n'
+            _repr += '    }'
+
+            _repr += ',\n'
+        _repr += ']'
+
+        return _repr
