@@ -14,10 +14,14 @@ terminal, which will copy the hooks (such as pre-commit) to the correct git dire
     3. Optionally, you may use the `--debug` (`-d` for short) flag, which will
     display extra information.
 
+### What kind of ideas am I allowed to suggest or add?
+Any ideas that would be good for a personal utility. If you have some problem that
+you think could be solved with a Telegram bot, feel free to suggest or implement it!
+
 ### Adding new commands
 Check out the README located at `aqua/extensions/commands`.
 
-### Adding new talk handlers
+### Adding new talk options
 Check out `aqua/talk/talk.py`.
 
 ### See also
