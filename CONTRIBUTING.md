@@ -17,6 +17,9 @@ terminal, which will copy the hooks (such as pre-commit) to the correct git dire
 ### Adding new commands
 Check out the README located at `aqua/extensions/commands`.
 
+### Adding new talk handlers
+Check out `aqua/talk/talk.py`.
+
 ### See also
 1. Docstring conventions: https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard
 
