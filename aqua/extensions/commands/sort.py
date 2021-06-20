@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
+from typing import Callable, Type, Union
+
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
@@ -22,21 +24,15 @@ from aqua.utils import logged_send_message
 
 
 @authorize
-def help(update: Update, context: CallbackContext) -> None:
-    msg = 'Hello! Here are the commands I am able to run:\n\n'
+def sort(update: Update, context: CallbackContext) -> None:
+    elements = context.args
 
-    msg += '/help - display this message\n'
+    # Elements come, by default, as strings. If any of them cannot be converted to
+    # int, then sort them as strings.
+    sort_key: Union[Type[float], Callable] = float
+    try:
+        list(map(int, elements))
+    except ValueError:
+        sort_key = str.lower
 
-    msg += '/lorem - generate one paragraph of Lorem Ipsum text\n'
-
-    msg += '/remindme <time> <time_unit> <message> - get yourself a reminder about <message> '
-    msg += 'after the specified time\n\n'
-
-    msg += '/sort <list of elements> - sort your elements, either alphabetically or numerically '
-    msg += 'depending on their type. For example: `/sort 1 5 2` or `/sort myword1 second_word`\n\n'
-
-    msg += '/start - send a welcome message\n'
-
-    msg += 'Learn more at: https://github.com/Guilherme-Vasconcelos/Aqua'
-
-    logged_send_message(update, context, msg)
+    logged_send_message(update, context, ' '.join(sorted(elements, key=sort_key)))
