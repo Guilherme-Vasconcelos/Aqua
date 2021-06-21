@@ -13,6 +13,8 @@ terminal, which will copy the hooks (such as pre-commit) to the correct git dire
     used to automatically restart Aqua whenever there are source code changes.
     3. Optionally, you may use the `--debug` (`-d` for short) flag, which will
     display extra information.
+4. When you are done with your feature, please remember to add it to
+[CHANGELOG.md](CHANGELOG.md).
 
 ### What kind of ideas am I allowed to suggest or add?
 Any ideas that would be good for a personal utility. If you have some problem that
