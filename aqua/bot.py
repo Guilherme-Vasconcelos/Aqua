@@ -19,6 +19,7 @@ import importlib
 import logging
 
 from os.path import dirname, basename, isfile, join
+from typing import Callable
 
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
@@ -51,13 +52,16 @@ class Bot:
         self.updater = Updater(token=token)
         self.dispatcher = self.updater.dispatcher
 
+    def commands_with_aliases(self, command_functions: dict[str, Callable]) -> dict[str, Callable]:
+        return command_functions
+
     async def start_polling(self) -> None:
         """Start polling Telegram for bot updates."""
-        for command in command_extensions:
-            handler = CommandHandler(command, command_functions[command])
+        for command_trigger, command in self.commands_with_aliases(command_functions).items():
+            handler = CommandHandler(command_trigger, command)
             self.dispatcher.add_handler(handler)
 
-            logging.debug(f'Successfully loaded command \'{command}\'.')
+            logging.info(f'Successfully loaded command trigger \'{command_trigger}\' to \'{command.__name__}\'')
 
         talk_handler = MessageHandler(Filters.text & (~Filters.command), talk_handler_command)
         self.dispatcher.add_handler(talk_handler)
