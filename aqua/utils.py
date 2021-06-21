@@ -18,9 +18,36 @@ import logging
 import secrets
 
 from sys import argv
+from typing import List
 
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
+
+
+def prefix_substrings(s: str) -> List[str]:
+    """
+    Generates a list of substrings, all of which have the same beginning as `s`.
+    For example, if s is 'foo', this function will generate ['f', 'fo', 'foo'].
+    Substrings that do not share the same beginning are not generated here.
+
+    Parameters
+    ----------
+    s : str
+        The string to generate substrings from.
+
+    Returns
+    -------
+    List[str]
+        The list of substrings.
+    """
+
+    _substrings = []
+    current_substring = ''
+    for character in s:
+        current_substring += character
+        _substrings.append(current_substring)
+
+    return _substrings
 
 
 def has_flag(full_flag: str) -> bool:

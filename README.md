@@ -28,6 +28,9 @@ As far as using Aqua, that's all there is to installation. If you are interested
 the source code, check extra development instructions in [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ### Available commands
+All commands below can be abbreviated (e.g. you can use `/lo` instead of `/lorem`) as long as your
+abbreviation is not ambiguous.
+
 - `/lorem`: generates one paragraph of Lorem Ipsum text. 
 - `/remindme <time> <time_unit> <message>`: reminds you about \<message> after the given amount of
 time. Example: `/remindme 10 minute Get pizza in the oven` will remind you about the pizza in
