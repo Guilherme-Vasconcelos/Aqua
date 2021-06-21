@@ -28,7 +28,8 @@ do
         fi
     fi
 
-    if [[ $(cat "$HELP_COMMAND_FILE" | grep  "/$command_name" | wc -l) == 0 ]]
+    commands_to_skip=( _invalid )
+    if [[ ! " ${commands_to_skip[@]} " =~ " $command_name " && $(cat "$HELP_COMMAND_FILE" | grep  "/$command_name" | wc -l) == 0 ]]
     then
         echo "Pre-commit hook failed: $command_name was not described in $HELP_COMMAND_FILE. Also, add it to README.md too."
         exit 1

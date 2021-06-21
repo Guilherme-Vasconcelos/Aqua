@@ -32,8 +32,8 @@ the source code, check extra development instructions in [CONTRIBUTING.md](CONTR
 - `/remindme <time> <time_unit> <message>`: reminds you about \<message> after the given amount of
 time. Example: `/remindme 10 minute Get pizza in the oven` will remind you about the pizza in
 about 10 minutes.
-- `/sort <list_of_elements>`: sorts your list. If all the elements can be converted to a number,
-they will be sorted numerically, else alphabetically. Example: `/sort 5 2 1` or `/sort myword1 second_word`.
+- `/sort <list_of_elements>`: sorts your list. If all the elements are numbers, they will be sorted
+numerically, else alphabetically. Example: `/sort 5 2 1` or `/sort myword1 second_word`.
 - `/start`: sends a "welcome" message. This can be useful to check if you have set up everything
 correctly.
 
