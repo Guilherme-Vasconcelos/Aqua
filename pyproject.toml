@@ -12,6 +12,7 @@ aqua = 'aqua.cli:main'
 python = "^3.9"
 python-telegram-bot = "^13.6"
 click = "^8.0.1"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.812"
