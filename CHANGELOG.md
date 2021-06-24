@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 - Commands can now be abbreviate if the abbreviation is unambiguous (e.g. `/l` or `/lo` instead of `/lorem`.)
+- New command: `whatis`.
 
 ## [0.1.0] - 2021-06-20
 ### Added
