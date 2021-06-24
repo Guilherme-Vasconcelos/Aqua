@@ -35,10 +35,11 @@ abbreviation is not ambiguous.
 - `/remindme <time> <time_unit> <message>`: reminds you about \<message> after the given amount of
 time. Example: `/remindme 10 minute Get pizza in the oven` will remind you about the pizza in
 about 10 minutes.
-- `/sort <list_of_elements>`: sorts your list. If all the elements are numbers, they will be sorted
+- `/sort <list of elements>`: sorts your list. If all the elements are numbers, they will be sorted
 numerically, else alphabetically. Example: `/sort 5 2 1` or `/sort myword1 second_word`.
 - `/start`: sends a "welcome" message. This can be useful to check if you have set up everything
 correctly.
+- `whatis <search query>`: Gives you a brief summary about your search. Example: `/whatis linux kernel`.
 
 More commands will be added soon!
 
