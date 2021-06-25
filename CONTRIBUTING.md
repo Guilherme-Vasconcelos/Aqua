@@ -3,9 +3,7 @@ Hello! Here you will find extra installation instructions for development.
 
 ### Development installation
 1. First you should install Aqua as described in [README.md](README.md).
-2. In order to set up the git hooks, execute `$ sh prepare_git_hooks.sh` in your
-terminal, which will copy the hooks (such as pre-commit) to the correct git directory.
-3. When executing aqua, it is recommended that you:
+2. When executing aqua, it is recommended that you:
     1. Install [yarn](https://yarnpkg.com/), a node.js package manager, and
     then run `$ yarn install` in Aqua's root directory.
     2. Execute `$ yarn aqua` instead of `$ aqua`. The only difference is that
@@ -13,8 +11,12 @@ terminal, which will copy the hooks (such as pre-commit) to the correct git dire
     used to automatically restart Aqua whenever there are source code changes.
     3. Optionally, you may use the `--debug` (`-d` for short) flag, which will
     display extra information.
-4. When you are done with your feature, please remember to add it to
-[CHANGELOG.md](CHANGELOG.md).
+3. When you are done with your feature, please remember to add it to
+[CHANGELOG.md](CHANGELOG.md). The code also needs to comply with the tests,
+mypy, flake8 and bandit, but those checks can be performed by the workflows.
+
+OBS: `requirements.txt` is kept because of compatibility with GitHub workflows.
+However, it is better to use Poetry to manage dependencies as instructed.
 
 ### What kind of ideas am I allowed to suggest or add?
 Any ideas that would be good for a personal utility. If you have some problem that

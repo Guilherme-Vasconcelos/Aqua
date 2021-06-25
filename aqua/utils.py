@@ -14,9 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
+import glob
 import logging
 import secrets
 
+from os.path import join
 from sys import argv
 from typing import List
 
@@ -114,3 +116,25 @@ def safe_randint(lower_bound: int, upper_bound: int) -> int:
     cryptography.
     """
     return secrets.choice(range(lower_bound, upper_bound + 1))
+
+
+def collect_python_files_at(path: str, include_init: bool = False) -> List[str]:
+    """
+    Collects a list of Python files at a given directory.
+
+    Parameters
+    ----------
+    path : str
+        The directory in which search will be performed.
+    include_init : bool
+        Whether to include the __init__.py file.
+
+    Returns
+    -------
+    A list of strings with the full path for each file.
+    """
+    files = glob.glob(join(path, '*.py'))
+    if include_init:
+        return files
+
+    return list(filter(lambda f: '__init__.py' not in f, files))

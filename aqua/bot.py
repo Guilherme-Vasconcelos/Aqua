@@ -14,18 +14,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
-import glob
 import importlib
 import logging
 
 from collections import Counter
-from os.path import dirname, basename, isfile, join
+from os.path import dirname, basename, isfile
 from typing import Callable, List
 
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
 from aqua.extensions.talk.talk import talk as talk_handler_command
-from aqua.utils import has_flag, prefix_substrings
+from aqua.utils import collect_python_files_at, has_flag, prefix_substrings
 
 if not has_flag('help'):
     logging_level = logging.DEBUG if has_flag('debug') else logging.INFO
@@ -35,7 +34,7 @@ if not has_flag('help'):
     )
 
 # Dynamically importing all command extensions
-command_extensions_files = glob.glob(join(dirname(__file__) + '/extensions/commands', "*.py"))
+command_extensions_files = collect_python_files_at(dirname(__file__) + '/extensions/commands')
 command_extensions = [
     basename(f)[:-3] for f in command_extensions_files if isfile(f) and not f.endswith('__init__.py')
 ]
