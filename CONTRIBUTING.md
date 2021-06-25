@@ -15,7 +15,7 @@ Hello! Here you will find extra installation instructions for development.
 [CHANGELOG.md](CHANGELOG.md). The code also needs to comply with the tests,
 mypy, flake8 and bandit, but those checks can be performed by the workflows.
 
-OBS: `requirements.txt` is kept because of compatibility with GitHub workflows.
+P.S.: `requirements.txt` is kept because of compatibility with GitHub workflows.
 However, it is better to use Poetry to manage dependencies as instructed.
 
 ### What kind of ideas am I allowed to suggest or add?
