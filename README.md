@@ -39,7 +39,7 @@ about 10 minutes.
 numerically, else alphabetically. Example: `/sort 5 2 1` or `/sort myword1 second_word`.
 - `/start`: sends a "welcome" message. This can be useful to check if you have set up everything
 correctly.
-- `whatis <search query>`: Gives you a brief summary about your search. Example: `/whatis linux kernel`.
+- `/whatis <search query>`: Gives you a brief summary about your search. Example: `/whatis linux kernel`.
 
 More commands will be added soon!
 
