@@ -5,8 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Commands can now be abbreviate if the abbreviation is unambiguous (e.g. `/l` or `/lo` instead of `/lorem`.)
+- Commands can now be abbreviate if the abbreviation is unambiguous (e.g. `/l` or `/lo` instead of `/lorem`).
 - New command: `whatis`.
+- Moved most of docs to `docs` directory.
+- For development: removed the old pre-commit hook and replaced it with tests (which were also added to Actions workflow).
 
 ## [0.1.0] - 2021-06-20
 ### Added
