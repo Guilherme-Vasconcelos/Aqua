@@ -75,12 +75,11 @@ class Bot:
         # Step 1: generate the dict of commands and their respective aliases
         potentially_ambiguous_commands: dict[str, List[str]] = {}
         for command_trigger, command in command_functions.items():
-            list_of_aliases = []
             if command_trigger.startswith('_'):
                 # Internal commands (which begin with '_') do not have aliases.
-                list_of_aliases.append(command_trigger)
+                list_of_aliases = [command_trigger]
             else:
-                list_of_aliases += prefix_substrings(command_trigger)
+                list_of_aliases = prefix_substrings(command_trigger)
             potentially_ambiguous_commands[command_trigger] = list_of_aliases
 
         # Step 2: collect ambiguous values, these will point to _invalid

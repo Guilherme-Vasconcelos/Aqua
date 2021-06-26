@@ -42,10 +42,9 @@ def test_auths_for_all_aqua_extensions():
             if isinstance(node, ast.FunctionDef) and node.name == command_to_seek:
                 # If the command was found, then it MUST have auth
                 for child_node in ast.iter_child_nodes(node):
-                    if isinstance(child_node, ast.Name):
-                        if child_node.id == 'authorize':
-                            found_auth = True
-                            results[command_to_seek] = 'OK'
+                    if isinstance(child_node, ast.Name) and child_node.id == 'authorize':
+                        found_auth = True
+                        results[command_to_seek] = 'OK'
 
         if not found_auth:
             results[command_to_seek] = 'FAILED'
