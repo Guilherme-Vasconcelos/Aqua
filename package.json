@@ -1,7 +1,7 @@
 {
   "name": "aqua",
   "version": "0.1.0",
-  "description": "A Telegram bot for personal utilities",
+  "description": "A Telegram bot that provides you a collection of personal utilities",
   "author": "Guilherme-Vasconcelos",
   "license": "AGPL-3.0-or-later",
   "private": false,

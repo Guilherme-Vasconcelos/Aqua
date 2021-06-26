@@ -3,9 +3,8 @@ Hello! Here you will find extra installation instructions for development.
 
 ### Development installation
 1. First you should install Aqua as described in [README.md](README.md).
-2. In order to set up the git hooks, execute `$ sh prepare_git_hooks.sh` in your
-terminal, which will copy the hooks (such as pre-commit) to the correct git directory.
-3. When executing aqua, it is recommended that you:
+
+2. When executing aqua, it is recommended that you:
     1. Install [yarn](https://yarnpkg.com/), a node.js package manager, and
     then run `$ yarn install` in Aqua's root directory.
     2. Execute `$ yarn aqua` instead of `$ aqua`. The only difference is that
@@ -14,8 +13,19 @@ terminal, which will copy the hooks (such as pre-commit) to the correct git dire
     3. Optionally, you may use the `--debug` (`-d` for short) flag, which will
     display extra information.
 
+3. When you are done with your feature, please remember to add it to
+[CHANGELOG.md](CHANGELOG.md). The code also needs to comply with the tests,
+mypy, flake8 and bandit, but those checks can be performed by the workflows.
+
+### What kind of ideas am I allowed to suggest or add?
+Any ideas that would be good for a personal utility. If you have some problem that
+you think could be solved with a Telegram bot, feel free to suggest or implement it!
+
 ### Adding new commands
 Check out the README located at `aqua/extensions/commands`.
+
+### Adding new talk options
+Check out `aqua/talk/talk.py`.
 
 ### See also
 1. Docstring conventions: https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard

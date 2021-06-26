@@ -1,0 +1,50 @@
+# Workflow inspired by:
+# https://github.com/johnvictorfs/rsatlantis/blob/dd26f739eebef463c84ab88a123f6c6e8b91d08f/.github/workflows/tests.yml
+
+name: Source code checks
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+
+    - name: Set up Poetry
+      uses: abatilo/actions-poetry@v2.0.0
+
+    - name: Poetry config
+      run: poetry config virtualenvs.in-project true
+
+    - uses: actions/cache@v2
+      with:
+        path: .venv
+        key: poetry-${{ hashFiles('**/poetry.lock') }}
+
+    - name: Install dependencies
+      run: |
+        poetry --version
+        poetry install
+
+    - name: Lint with flake8
+      run: poetry run flake8 .
+
+    - name: Lint with mypy
+      run: poetry run mypy .
+
+    - name: Run tests
+      run: poetry run pytest
+
+    - name: Perform security check
+      run: poetry run bandit aqua/

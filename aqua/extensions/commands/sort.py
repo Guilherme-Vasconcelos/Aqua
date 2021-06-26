@@ -14,26 +14,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
-import json
-import logging
+from typing import Callable, Type, Union
 
-with open('config/bot.json', 'r') as f:
-    _raw_bot_data = f.read()
+from telegram import Update
+from telegram.ext.callbackcontext import CallbackContext
 
-_bot_data = json.loads(_raw_bot_data)
+from aqua.checks import authorize
+from aqua.utils import logged_send_message
 
-BOT_TOKEN = _bot_data['token']
 
-_user_chat_id = _bot_data.get('user_chat_id')
-if _user_chat_id:
+@authorize
+def sort(update: Update, context: CallbackContext) -> None:
+    elements = context.args
+
+    # Elements come, by default, as strings. If any of them cannot be converted to
+    # int, then sort them as strings.
+    sort_key: Union[Type[float], Callable] = float
     try:
-        USER_CHAT_ID = int(_user_chat_id)
+        list(map(int, elements))
     except ValueError:
-        logging.warn(
-            f'Your user_chat_id \'{_user_chat_id}\' could not be casted to an integer. '
-            'Bot is assumed to be public, so everyone will be able to message Aqua. '
-            'If you want to change this behaviour, ensure you have a valid user_chat_id.'
-        )
-        USER_CHAT_ID = None
-else:
-    USER_CHAT_ID = None
+        sort_key = str.lower
+
+    logged_send_message(update, context, ' '.join(sorted(elements, key=sort_key)))

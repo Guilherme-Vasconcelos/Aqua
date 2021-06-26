@@ -14,26 +14,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
-import json
-import logging
+from telegram import Update
+from telegram.ext.callbackcontext import CallbackContext
 
-with open('config/bot.json', 'r') as f:
-    _raw_bot_data = f.read()
+from aqua.checks import authorize
+from aqua.utils import logged_send_message
 
-_bot_data = json.loads(_raw_bot_data)
 
-BOT_TOKEN = _bot_data['token']
-
-_user_chat_id = _bot_data.get('user_chat_id')
-if _user_chat_id:
-    try:
-        USER_CHAT_ID = int(_user_chat_id)
-    except ValueError:
-        logging.warn(
-            f'Your user_chat_id \'{_user_chat_id}\' could not be casted to an integer. '
-            'Bot is assumed to be public, so everyone will be able to message Aqua. '
-            'If you want to change this behaviour, ensure you have a valid user_chat_id.'
-        )
-        USER_CHAT_ID = None
-else:
-    USER_CHAT_ID = None
+@authorize
+def talk(update: Update, context: CallbackContext):
+    logged_send_message(update, context, 'Sorry, I don\'t have an answer for that yet!')

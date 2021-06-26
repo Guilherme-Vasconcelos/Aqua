@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "aqua"
 version = "0.1.0"
-description = "A Telegram bot for personal utilities"
+description = "A Telegram bot that provides you a collection of personal utilities"
 authors = ["Guilherme-Vasconcelos"]
 license = "AGPL-3.0-or-later"
 
@@ -12,11 +12,13 @@ aqua = 'aqua.cli:main'
 python = "^3.9"
 python-telegram-bot = "^13.6"
 click = "^8.0.1"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.812"
 flake8 = "^3.9.2"
 bandit = "^1.7.0"
+pytest = "^6.2.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
