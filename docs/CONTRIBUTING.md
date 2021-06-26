@@ -3,6 +3,7 @@ Hello! Here you will find extra installation instructions for development.
 
 ### Development installation
 1. First you should install Aqua as described in [README.md](README.md).
+
 2. When executing aqua, it is recommended that you:
     1. Install [yarn](https://yarnpkg.com/), a node.js package manager, and
     then run `$ yarn install` in Aqua's root directory.
@@ -11,6 +12,7 @@ Hello! Here you will find extra installation instructions for development.
     used to automatically restart Aqua whenever there are source code changes.
     3. Optionally, you may use the `--debug` (`-d` for short) flag, which will
     display extra information.
+
 3. When you are done with your feature, please remember to add it to
 [CHANGELOG.md](CHANGELOG.md). The code also needs to comply with the tests,
 mypy, flake8 and bandit, but those checks can be performed by the workflows.

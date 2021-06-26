@@ -18,13 +18,13 @@ import json
 import logging
 
 with open('config/bot.json', 'r') as f:
-    raw_bot_data = f.read()
+    _raw_bot_data = f.read()
 
-bot_data = json.loads(raw_bot_data)
+_bot_data = json.loads(_raw_bot_data)
 
-BOT_TOKEN = bot_data['token']
+BOT_TOKEN = _bot_data['token']
 
-_user_chat_id = bot_data.get('user_chat_id')
+_user_chat_id = _bot_data.get('user_chat_id')
 if _user_chat_id:
     try:
         USER_CHAT_ID = int(_user_chat_id)

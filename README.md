@@ -1,31 +1,5 @@
 # Aqua
-Aqua is a Telegram bot for personal utilities.
-
-### Installation
-1. Prerequisites: Install Poetry for managing dependencies and fork/clone the repository.
-All commands and files below will assume you are at the project's root directory.
-2. Create your Telegram bot by [speaking to Botfather](https://t.me/botfather).
-3. Rename `config/db.example.json` and `config/bot.example.json` respectively to
-`config/db.json` and `config/bot.json`. Also, replace the data in those files with
-your actual data:
-    - `config/db.json` is not currently used for anything, though that may change
-    in the future.
-    - In `config/bot.json`: The token is provided to you by the Botfather.
-    - In `config/bot.json`: The user_chat_id is optional and you may delete it completely
-    if you don't want Aqua to perform authorization checks, in which case she will answer
-    to anyone who messages her. If you do want Aqua to only answer to you but you don't know
-    your user_chat_id, perform the next steps and you will be instructed on how to find it out.
-4. Create a virtual environment and install dependencies by running `$ python3 -m venv .venv`
-and `$ poetry install`.
-5. Ensure you are using the local Python with `$ poetry shell` and then run `$ aqua` to start
-the bot.
-6. Coming back to step 3, if you don't yet know your user_chat_id, run Aqua as described in
-step 5 and send her a `/start` message, then check your terminal. You should see a message
-that begins like this: `WARNING - Received a message from 'XYZ', but user_chat_id is None`.
-XYZ is your user_chat_id.
-
-As far as using Aqua, that's all there is to installation. If you are interested in modifying
-the source code, check extra development instructions in [CONTRIBUTING.md](CONTRIBUTING.md) file.
+Aqua is a Telegram bot that provides you a collection of personal utilities.
 
 ### Available commands
 All commands below can be abbreviated (e.g. you can use `/lo` instead of `/lorem`) as long as your
@@ -42,6 +16,9 @@ correctly.
 - `/whatis <search query>`: Gives you a brief summary about your search. Example: `/whatis linux kernel`.
 
 More commands will be added soon!
+
+### Documentation
+For documentation (installation, development instructions and more) please check the [docs directory](docs/).
 
 ### License
 Copyright 2021 Guilherme-Vasconcelos
