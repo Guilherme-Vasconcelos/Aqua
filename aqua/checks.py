@@ -23,6 +23,7 @@ from telegram import Update, Chat
 from telegram.ext.callbackcontext import CallbackContext
 
 from aqua.constants import USER_CHAT_ID
+from aqua.utils import logged_send_message
 
 
 def is_authorized(update: Update) -> bool:
@@ -106,7 +107,7 @@ def authorize(command: Callable) -> Callable:
     return wrapper
 
 
-def ensure_telegram_number_args(number_args: int, method: Literal['min', 'exact', 'max']) -> Callable:
+def ensure_telegram_number_args(number_args: int, comparison_method: Literal['min', 'exact', 'max']) -> Callable:
     """
     Ensures the correct number of arguments were passed to the command's context.
 
@@ -114,36 +115,43 @@ def ensure_telegram_number_args(number_args: int, method: Literal['min', 'exact'
     ----------
     number_args : int
         The number of arguments.
-    method: Literal['min', 'exact', 'max']
+    comparison_method: Literal['min', 'exact', 'max']
         The method which will be used to check if the number of arguments are enough. For
-        example, if `method` is 'min' and `number_args` is 5, then the user must pass AT
+        example, if `comparison_method` is 'min' and `number_args` is 5, then the user must pass AT
         LEAST 5 arguments, otherwise function will not be executed.
 
     Returns
     -------
     Callable
         A function that executes the original function if `number_args` is enough according
-        to `method`, else a function that does nothing.
+        to `comparison_method`, else a function that does nothing.
     """
-    # TODO: test if this breaks authorize.
-    # TODO: add custom message telling user about how many expected args.
+    message_join = {'min': 'at least ', 'exact': '', 'max': 'at most '}[comparison_method]
+
     def decorator(function: Callable):
         @wraps(function)
         def wrapper(*args, **kwargs):
             for arg in args:
+                if type(arg) == Update:
+                    update = arg
                 if type(arg) == CallbackContext:
+                    context = arg
                     len_args = len(arg.args)
                     if (
-                        (method == 'min' and len_args >= number_args)
-                        or (method == 'exact' and len_args == number_args)
-                        or (method == 'max' and len_args <= number_args)
+                        (comparison_method == 'min' and len_args >= number_args)
+                        or (comparison_method == 'exact' and len_args == number_args)
+                        or (comparison_method == 'max' and len_args <= number_args)
                     ):
                         return function(*args, **kwargs)
 
             logging.warn(
                 f'Function {function.__name__} was called with {len_args} arguments, but expected {number_args}. '
-                f'Method used was {method} - Not executing function.'
+                f'Comparison method used was {comparison_method} - Not executing function.'
             )
-            return
+            logged_send_message(
+                update, context,
+                f'Sorry, this command expects {message_join}{number_args} arguments, '
+                f'but received {len(context.args)} instead.'
+            )
         return wrapper
     return decorator
