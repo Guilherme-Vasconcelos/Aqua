@@ -10,8 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved most of docs to `docs` directory.
 - For development: removed the old pre-commit hook and replaced it with tests (which were also added to Actions
 workflow).
-- For development: added the `ensure_context_number_args` to easily specify the number of arguments a command
-should have.
+- For development: added the `ensure_context_number_args` decorator to easily specify the number of arguments
+a command should have.
 
 ## [0.1.0] - 2021-06-20
 ### Added
