@@ -24,13 +24,14 @@ import requests
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
-from aqua.checks import authorize
+from aqua.checks import authorize, ensure_telegram_number_args
 from aqua.utils import logged_send_message
 
 WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php'
 
 
 @authorize
+@ensure_telegram_number_args(1, 'min')
 def whatis(update: Update, context: CallbackContext) -> None:
     try:
         page_to_search = ' '.join(context.args)

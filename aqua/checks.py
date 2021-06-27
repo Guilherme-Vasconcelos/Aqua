@@ -17,9 +17,10 @@
 import logging
 
 from functools import wraps
-from typing import Callable
+from typing import Callable, Literal
 
 from telegram import Update, Chat
+from telegram.ext.callbackcontext import CallbackContext
 
 from aqua.constants import USER_CHAT_ID
 
@@ -103,3 +104,46 @@ def authorize(command: Callable) -> Callable:
         return
 
     return wrapper
+
+
+def ensure_telegram_number_args(number_args: int, method: Literal['min', 'exact', 'max']) -> Callable:
+    """
+    Ensures the correct number of arguments were passed to the command's context.
+
+    Parameters
+    ----------
+    number_args : int
+        The number of arguments.
+    method: Literal['min', 'exact', 'max']
+        The method which will be used to check if the number of arguments are enough. For
+        example, if `method` is 'min' and `number_args` is 5, then the user must pass AT
+        LEAST 5 arguments, otherwise function will not be executed.
+
+    Returns
+    -------
+    Callable
+        A function that executes the original function if `number_args` is enough according
+        to `method`, else a function that does nothing.
+    """
+    # TODO: test if this breaks authorize.
+    # TODO: add custom message telling user about how many expected args.
+    def decorator(function: Callable):
+        @wraps(function)
+        def wrapper(*args, **kwargs):
+            for arg in args:
+                if type(arg) == CallbackContext:
+                    len_args = len(arg.args)
+                    if (
+                        (method == 'min' and len_args >= number_args)
+                        or (method == 'exact' and len_args == number_args)
+                        or (method == 'max' and len_args <= number_args)
+                    ):
+                        return function(*args, **kwargs)
+
+            logging.warn(
+                f'Function {function.__name__} was called with {len_args} arguments, but expected {number_args}. '
+                f'Method used was {method} - Not executing function.'
+            )
+            return
+        return wrapper
+    return decorator
