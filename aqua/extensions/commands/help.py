@@ -17,11 +17,12 @@
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
-from aqua.checks import authorize
+from aqua.checks import authorize, ensure_context_number_args
 from aqua.utils import logged_send_message
 
 
 @authorize
+@ensure_context_number_args(0, 'exact')
 def help(update: Update, context: CallbackContext) -> None:
     msg = 'Hello! Here are the commands I am able to run:\n\n'
 

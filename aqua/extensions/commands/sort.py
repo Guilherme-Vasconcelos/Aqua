@@ -19,11 +19,12 @@ from typing import Callable, Type, Union
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
-from aqua.checks import authorize
+from aqua.checks import authorize, ensure_context_number_args
 from aqua.utils import logged_send_message
 
 
 @authorize
+@ensure_context_number_args(1, 'min')
 def sort(update: Update, context: CallbackContext) -> None:
     elements = context.args
 
