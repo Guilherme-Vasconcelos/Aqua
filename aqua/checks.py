@@ -107,7 +107,7 @@ def authorize(command: Callable) -> Callable:
     return wrapper
 
 
-def ensure_telegram_number_args(number_args: int, comparison_method: Literal['min', 'exact', 'max']) -> Callable:
+def ensure_context_number_args(number_args: int, comparison_method: Literal['min', 'exact', 'max']) -> Callable:
     """
     Ensures the correct number of arguments were passed to the command's context.
 

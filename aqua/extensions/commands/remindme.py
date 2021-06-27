@@ -20,7 +20,7 @@ from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
 from aqua.async_utils import add_to_event_loop_before_start
-from aqua.checks import authorize, ensure_telegram_number_args
+from aqua.checks import authorize, ensure_context_number_args
 from aqua.job_queue import JobQueue
 from aqua.utils import logged_send_message
 
@@ -30,7 +30,7 @@ add_to_event_loop_before_start(remindme_job_queue.begin_executing)
 
 
 @authorize
-@ensure_telegram_number_args(3, 'min')
+@ensure_context_number_args(3, 'min')
 def remindme(update: Update, context: CallbackContext) -> None:
     args = context.args
     delay_amount, delay_unit, *reminder = args

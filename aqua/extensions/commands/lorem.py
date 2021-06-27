@@ -23,7 +23,7 @@ from secrets import choice
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
-from aqua.checks import authorize, ensure_telegram_number_args
+from aqua.checks import authorize, ensure_context_number_args
 from aqua.utils import logged_send_message, safe_randint
 
 lorem_sentences = [
@@ -48,7 +48,7 @@ lorem_sentences = [
 
 
 @authorize
-@ensure_telegram_number_args(0, 'exact')
+@ensure_context_number_args(0, 'exact')
 def lorem(update: Update, context: CallbackContext) -> None:
     paragraph = ''
     number_of_sentences = safe_randint(6, 12)

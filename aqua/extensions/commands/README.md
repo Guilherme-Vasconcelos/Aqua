@@ -14,3 +14,13 @@ be automatically loaded:
 def start(...):
     ...
 ```
+
+Optionally, you may also use the decorator `@ensure_context_number_args`
+to easily specify how many arguments your command must have, though this
+one is not mandatory and will not be checked by CI:
+```python
+@authorize
+@ensure_context_number_args(5, 'max')
+def my_command_that_takes_up_to_five_arguments(...):
+    ...
+```
