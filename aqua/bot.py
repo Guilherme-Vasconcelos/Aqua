@@ -16,9 +16,8 @@
 
 import importlib
 import logging
-
 from collections import Counter
-from os.path import dirname, basename, isfile
+from os.path import basename, dirname, isfile
 from typing import Callable, List
 
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
@@ -26,33 +25,38 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 from aqua.extensions.talk.talk import talk as talk_handler_command
 from aqua.utils import collect_python_files_at, has_flag, prefix_substrings
 
-if not has_flag('help'):
-    logging_level = logging.DEBUG if has_flag('debug') else logging.INFO
+if not has_flag("help"):
+    logging_level = logging.DEBUG if has_flag("debug") else logging.INFO
     logging.basicConfig(
-        level=logging_level,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=logging_level, format="%(asctime)s - %(levelname)s - %(message)s"
     )
 
 # Dynamically importing all command extensions
-command_extensions_files = collect_python_files_at(dirname(__file__) + '/extensions/commands')
+command_extensions_files = collect_python_files_at(
+    dirname(__file__) + "/extensions/commands"
+)
 command_extensions = [
-    basename(f)[:-3] for f in command_extensions_files if isfile(f) and not f.endswith('__init__.py')
+    basename(f)[:-3]
+    for f in command_extensions_files
+    if isfile(f) and not f.endswith("__init__.py")
 ]
 
 command_functions = {}
 for command_extension in command_extensions:
-    module = importlib.import_module(f'aqua.extensions.commands.{command_extension}')
+    module = importlib.import_module(f"aqua.extensions.commands.{command_extension}")
     command_function = getattr(module, command_extension)
     command_functions[command_extension] = command_function
 
 
 class Bot:
     def __init__(self, token: str) -> None:
-        logging.debug('Creating bot instance.')
+        logging.debug("Creating bot instance.")
         self.updater = Updater(token=token)
         self.dispatcher = self.updater.dispatcher
 
-    def commands_with_aliases(self, command_functions: dict[str, Callable]) -> dict[str, Callable]:
+    def commands_with_aliases(
+        self, command_functions: dict[str, Callable]
+    ) -> dict[str, Callable]:
         """
         Generates aliases for all command abbreviations that are unambiguous.
         Ambiguous abbreviations will all execute the _invalid command.
@@ -70,12 +74,12 @@ class Bot:
             added keys (which are the aliases).
         """
 
-        invalid_command = command_functions['_invalid']
+        invalid_command = command_functions["_invalid"]
 
         # Step 1: generate the dict of commands and their respective aliases
         potentially_ambiguous_commands: dict[str, List[str]] = {}
         for command_trigger, command in command_functions.items():
-            if command_trigger.startswith('_'):
+            if command_trigger.startswith("_"):
                 # Internal commands (which begin with '_') do not have aliases.
                 list_of_aliases = [command_trigger]
             else:
@@ -87,7 +91,9 @@ class Bot:
         for list_of_aliases in potentially_ambiguous_commands.values():
             for alias in list_of_aliases:
                 seen_aliases.append(alias)
-        ambiguous_aliases = [item for item, count in Counter(seen_aliases).items() if count > 1]
+        ambiguous_aliases = [
+            item for item, count in Counter(seen_aliases).items() if count > 1
+        ]
 
         # Step 3: generate the actual dict of commands
         _command_functions: dict[str, Callable] = {}
@@ -102,15 +108,21 @@ class Bot:
 
     async def start_polling(self) -> None:
         """Start polling Telegram for bot updates."""
-        for command_trigger, command in self.commands_with_aliases(command_functions).items():
+        for command_trigger, command in self.commands_with_aliases(
+            command_functions
+        ).items():
             handler = CommandHandler(command_trigger, command)
             self.dispatcher.add_handler(handler)
 
-            logging.debug(f'Successfully loaded command trigger \'{command_trigger}\' to \'{command.__name__}\'')
+            logging.debug(
+                f"Successfully loaded command trigger '{command_trigger}' to '{command.__name__}'"
+            )
 
-        talk_handler = MessageHandler(Filters.text & (~Filters.command), talk_handler_command)
+        talk_handler = MessageHandler(
+            Filters.text & (~Filters.command), talk_handler_command
+        )
         self.dispatcher.add_handler(talk_handler)
-        logging.debug('Successfully loaded the talk handler.')
+        logging.debug("Successfully loaded the talk handler.")
 
-        logging.info('Starting bot.')
+        logging.info("Starting bot.")
         self.updater.start_polling()

@@ -15,7 +15,6 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
 from typing import NoReturn
 
 import click
@@ -26,16 +25,16 @@ from aqua.constants import BOT_TOKEN
 
 
 @click.command()
-@click.option('--debug', '-d', default=False, help='Debug mode', is_flag=True)
+@click.option("--debug", "-d", default=False, help="Debug mode", is_flag=True)
 def main(debug: bool) -> NoReturn:
     bot = Bot(BOT_TOKEN)
-    logging.debug('Setting up event loop for Job Queue and Bot.')
+    logging.debug("Setting up event loop for Job Queue and Bot.")
 
     add_to_event_loop_before_start(bot.start_polling)
 
-    logging.debug('Starting to run event loop tasks.')
+    logging.debug("Starting to run event loop tasks.")
     start_event_loop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -17,7 +17,6 @@
 import glob
 import logging
 import secrets
-
 from os.path import join
 from sys import argv
 from typing import List
@@ -44,7 +43,7 @@ def prefix_substrings(s: str) -> List[str]:
     """
 
     _substrings = []
-    current_substring = ''
+    current_substring = ""
     for character in s:
         current_substring += character
         _substrings.append(current_substring)
@@ -70,10 +69,10 @@ def has_flag(full_flag: str) -> bool:
     -----
     The shortened version of the full_flag is always assumed to be a dash, then its first character.
     """
-    if '--' + full_flag in argv:
+    if "--" + full_flag in argv:
         return True
 
-    return '-' + full_flag[0] in argv
+    return "-" + full_flag[0] in argv
 
 
 def logged_send_message(update: Update, context: CallbackContext, message: str) -> None:
@@ -88,7 +87,7 @@ def logged_send_message(update: Update, context: CallbackContext, message: str) 
         The message which will be sent.
     """
     chat_id = update.effective_chat.id
-    logging.info(f'Sending message \'{message}\' to user \'{chat_id}\'.')
+    logging.info(f"Sending message '{message}' to user '{chat_id}'.")
 
     context.bot.send_message(chat_id=chat_id, text=message)
 
@@ -133,8 +132,8 @@ def collect_python_files_at(path: str, include_init: bool = False) -> List[str]:
     -------
     A list of strings with the full path for each file.
     """
-    files = glob.glob(join(path, '*.py'))
+    files = glob.glob(join(path, "*.py"))
     if include_init:
         return files
 
-    return list(filter(lambda f: '__init__.py' not in f, files))
+    return list(filter(lambda f: "__init__.py" not in f, files))

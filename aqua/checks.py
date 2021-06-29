@@ -15,11 +15,10 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
 from functools import wraps
 from typing import Callable, Literal
 
-from telegram import Update, Chat
+from telegram import Chat, Update
 from telegram.ext.callbackcontext import CallbackContext
 
 from aqua.constants import USER_CHAT_ID
@@ -53,19 +52,19 @@ def is_authorized(update: Update) -> bool:
         return False
 
     if chat.id == USER_CHAT_ID:
-        logging.info(f'Authorizing user: {chat.id}.')
+        logging.info(f"Authorizing user: {chat.id}.")
         return True
 
     if USER_CHAT_ID is None:
         logging.warn(
-            f'Received a message from \'{chat.id}\', but user_chat_id is None. '
-            'Bot is assumed to be public, so user will be authorized. If you want '
-            'to change this behaviour, set up a user_chat_id in config/bot.json.'
+            f"Received a message from '{chat.id}', but user_chat_id is None. "
+            "Bot is assumed to be public, so user will be authorized. If you want "
+            "to change this behaviour, set up a user_chat_id in config/bot.json."
         )
 
         return True
 
-    logging.warn(f'Unauthorizing invalid user: {chat.id}.')
+    logging.warn(f"Unauthorizing invalid user: {chat.id}.")
     return False
 
 
@@ -90,6 +89,7 @@ def authorize(command: Callable) -> Callable:
     --------
     aqua.checks.is_authorized
     """
+
     @wraps(command)
     def wrapper(*args, **kwargs):
         for arg in args:
@@ -98,16 +98,18 @@ def authorize(command: Callable) -> Callable:
                     return command(*args, **kwargs)
                 return
         logging.error(
-            f'Could not find an Update in authorized function: \'{command.__name__}\'. '
-            'Are you sure it is a valid Telegram command?'
-            'Assuming user not authorized.'
+            f"Could not find an Update in authorized function: '{command.__name__}'. "
+            "Are you sure it is a valid Telegram command?"
+            "Assuming user not authorized."
         )
         return
 
     return wrapper
 
 
-def ensure_context_number_args(number_args: int, comparison_method: Literal['min', 'exact', 'max']) -> Callable:
+def ensure_context_number_args(
+    number_args: int, comparison_method: Literal["min", "exact", "max"]
+) -> Callable:
     """
     Ensures the correct number of arguments were passed to the command's context.
 
@@ -126,7 +128,9 @@ def ensure_context_number_args(number_args: int, comparison_method: Literal['min
         A function that executes the original function if `number_args` is enough according
         to `comparison_method`, else a function that does nothing.
     """
-    message_join = {'min': 'at least ', 'exact': '', 'max': 'at most '}[comparison_method]
+    message_join = {"min": "at least ", "exact": "", "max": "at most "}[
+        comparison_method
+    ]
 
     def decorator(function: Callable):
         @wraps(function)
@@ -138,20 +142,23 @@ def ensure_context_number_args(number_args: int, comparison_method: Literal['min
                     context = arg
                     len_args = len(arg.args)
                     if (
-                        (comparison_method == 'min' and len_args >= number_args)
-                        or (comparison_method == 'exact' and len_args == number_args)
-                        or (comparison_method == 'max' and len_args <= number_args)
+                        (comparison_method == "min" and len_args >= number_args)
+                        or (comparison_method == "exact" and len_args == number_args)
+                        or (comparison_method == "max" and len_args <= number_args)
                     ):
                         return function(*args, **kwargs)
 
             logging.warn(
-                f'Function {function.__name__} was called with {len_args} arguments, but expected {number_args}. '
-                f'Comparison method used was {comparison_method} - Not executing function.'
+                f"Function {function.__name__} was called with {len_args} arguments, but expected {number_args}. "
+                f"Comparison method used was {comparison_method} - Not executing function."
             )
             logged_send_message(
-                update, context,
-                f'Sorry, this command expects {message_join}{number_args} arguments, '
-                f'but received {len(context.args)} instead.'
+                update,
+                context,
+                f"Sorry, this command expects {message_join}{number_args} arguments, "
+                f"but received {len(context.args)} instead.",
             )
+
         return wrapper
+
     return decorator

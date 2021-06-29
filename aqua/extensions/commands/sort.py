@@ -24,7 +24,7 @@ from aqua.utils import logged_send_message
 
 
 @authorize
-@ensure_context_number_args(1, 'min')
+@ensure_context_number_args(1, "min")
 def sort(update: Update, context: CallbackContext) -> None:
     elements = context.args
 
@@ -36,4 +36,4 @@ def sort(update: Update, context: CallbackContext) -> None:
     except ValueError:
         sort_key = str.lower
 
-    logged_send_message(update, context, ' '.join(sorted(elements, key=sort_key)))
+    logged_send_message(update, context, " ".join(sorted(elements, key=sort_key)))

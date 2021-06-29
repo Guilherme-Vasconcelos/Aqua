@@ -30,19 +30,19 @@ add_to_event_loop_before_start(remindme_job_queue.begin_executing)
 
 
 @authorize
-@ensure_context_number_args(3, 'min')
+@ensure_context_number_args(3, "min")
 def remindme(update: Update, context: CallbackContext) -> None:
     args = context.args
     delay_amount, delay_unit, *reminder = args
 
-    multiply_factors = {'minute': 60, 'hour': 60 * 60, 'day': 60 * 60 * 24}
+    multiply_factors = {"minute": 60, "hour": 60 * 60, "day": 60 * 60 * 24}
     multiply_factor = multiply_factors.get(delay_unit)
 
     if multiply_factor is None:
         logged_send_message(
             update,
             context,
-            'Unsupported unit! Please pick between "minute", "hour" or "day".'
+            'Unsupported unit! Please pick between "minute", "hour" or "day".',
         )
 
         return
@@ -53,8 +53,8 @@ def remindme(update: Update, context: CallbackContext) -> None:
         logged_send_message(
             update,
             context,
-            f'Sorry, I could not understand what the value \'{delay_amount}\' means.'
-            ' Try again!'
+            f"Sorry, I could not understand what the value '{delay_amount}' means."
+            " Try again!",
         )
 
         return
@@ -65,5 +65,5 @@ def remindme(update: Update, context: CallbackContext) -> None:
 
     remindme_job_queue.append_job(job, when_to_execute_task)
     logged_send_message(
-        update, context, f'Okay! I will remind you in {delay_amount} {delay_unit}(s).'
+        update, context, f"Okay! I will remind you in {delay_amount} {delay_unit}(s)."
     )
