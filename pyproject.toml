@@ -5,6 +5,10 @@ description = "A Telegram bot that provides you a collection of personal utiliti
 authors = ["Guilherme-Vasconcelos"]
 license = "AGPL-3.0-or-later"
 
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
 [tool.poetry.scripts]
 aqua = 'aqua.cli:main'
 
