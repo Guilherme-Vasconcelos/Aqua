@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
+
 class AquaInterruptedError(Exception):
     """Raised when Aqua's components such as event loop are unexpectedly terminated."""
+
     pass

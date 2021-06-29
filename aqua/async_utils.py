@@ -39,13 +39,15 @@ def add_to_event_loop_before_start(func: Callable) -> None:
     --------
     aqua.async_utils.start_event_loop
     """
-    logging.debug(f'Adding \'{func.__name__}\' to event loop.')
+    logging.debug(f"Adding '{func.__name__}' to event loop.")
     event_loop = asyncio.get_event_loop()
     if event_loop.is_running():
-        logging.critical(f'Could not add \'{func.__name__}\' to event loop: it is already running.')
+        logging.critical(
+            f"Could not add '{func.__name__}' to event loop: it is already running."
+        )
     else:
         event_loop.create_task(func())
-        logging.debug(f'Successfully added \'{func.__name__}\' to event loop.')
+        logging.debug(f"Successfully added '{func.__name__}' to event loop.")
 
 
 def start_event_loop() -> NoReturn:
@@ -57,8 +59,8 @@ def start_event_loop() -> NoReturn:
     AquaInterruptedError
         If for some reason the event_loop did stop.
     """
-    logging.info('Started event loop.')
+    logging.info("Started event loop.")
     event_loop = asyncio.get_event_loop()
     event_loop.run_forever()
 
-    raise AquaInterruptedError('Aqua\'s main event loop was terminated.')
+    raise AquaInterruptedError("Aqua's main event loop was terminated.")

@@ -25,7 +25,9 @@ class JobQueue:
     def __init__(self, job_queue_delay: int):
         self._queue: Queue = Queue()
         self._job_queue_delay = job_queue_delay
-        logging.debug(f'Job queue initialized successfully with delay set to {self._job_queue_delay}.')
+        logging.debug(
+            f"Job queue initialized successfully with delay set to {self._job_queue_delay}."
+        )
 
     def append_job(self, job: Callable, schedule: float) -> None:
         """
@@ -44,30 +46,27 @@ class JobQueue:
         time.time
         """
         logging.debug(
-            f'Appending job \'{job.__name__}\', which is scheduled to {schedule}.'
+            f"Appending job '{job.__name__}', which is scheduled to {schedule}."
         )
 
-        self._queue.put({
-            'job': job,
-            'schedule': schedule
-        })
+        self._queue.put({"job": job, "schedule": schedule})
 
     async def begin_executing(self) -> NoReturn:
         """Starts executing the Job Queue."""
         while True:
             if self._queue.empty():
                 logging.debug(
-                    'Job queue attempted to execute available jobs, but there are none. '
-                    f'Attempting again in {self._job_queue_delay} seconds.'
+                    "Job queue attempted to execute available jobs, but there are none. "
+                    f"Attempting again in {self._job_queue_delay} seconds."
                 )
             else:
-                logging.debug('Executing available jobs in job queue.')
+                logging.debug("Executing available jobs in job queue.")
                 new_queue: Queue = Queue()
                 while not self._queue.empty():
                     now = time()
                     job = self._queue.get()
-                    if now >= job['schedule']:
-                        job['job']()
+                    if now >= job["schedule"]:
+                        job["job"]()
                     else:
                         new_queue.put(job)
                 self._queue = new_queue

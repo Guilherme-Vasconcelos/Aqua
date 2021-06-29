@@ -25,53 +25,53 @@ from telegram.ext.callbackcontext import CallbackContext
 from aqua.checks import authorize, ensure_context_number_args
 from aqua.utils import logged_send_message
 
-WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php'
+WIKIPEDIA_API_URL = "https://en.wikipedia.org/w/api.php"
 
 
 @authorize
-@ensure_context_number_args(1, 'min')
+@ensure_context_number_args(1, "min")
 def whatis(update: Update, context: CallbackContext) -> None:
     try:
-        page_to_search = ' '.join(context.args)
+        page_to_search = " ".join(context.args)
 
         # Instead of directly using the user's input to search the page, first use OpenSearch
         # to find out the exact page's name. This allows case insensitive search.
         open_search_params = {
-            'action': 'opensearch',
-            'search': page_to_search,
-            'utf8': '',
-            'limit': '1',
-            'format': 'json'
+            "action": "opensearch",
+            "search": page_to_search,
+            "utf8": "",
+            "limit": "1",
+            "format": "json",
         }
 
         open_search_response = requests.get(WIKIPEDIA_API_URL, open_search_params)
         page_title = open_search_response.json()[1][0]
 
         user_search_params = {
-            'action': 'query',
-            'format': 'json',
-            'utf8': '',
-            'prop': 'extracts',
-            'explaintext': '1',
-            'exintro': '1',
-            'titles': page_title
+            "action": "query",
+            "format": "json",
+            "utf8": "",
+            "prop": "extracts",
+            "explaintext": "1",
+            "exintro": "1",
+            "titles": page_title,
         }
 
         response = requests.get(WIKIPEDIA_API_URL, user_search_params)
 
         data = response.json()
 
-        msg = sub(r'\n+', '\n', list(data['query']['pages'].values())[0]['extract'])
-        while len(msg) > 0 and msg[-1] == '\n':
+        msg = sub(r"\n+", "\n", list(data["query"]["pages"].values())[0]["extract"])
+        while len(msg) > 0 and msg[-1] == "\n":
             msg = msg[:-2]
-        msg = msg.replace('\n', '\n\n')
+        msg = msg.replace("\n", "\n\n")
 
         if len(msg) == 0:
-            raise Exception('Message has length 0, page must be invalid.')
+            raise Exception("Message has length 0, page must be invalid.")
 
         msg += (
-            '\n\nThis search was performed on Wikipedia: '
-            f'https://en.wikipedia.org/wiki/{parse.quote(page_title)}'
+            "\n\nThis search was performed on Wikipedia: "
+            f"https://en.wikipedia.org/wiki/{parse.quote(page_title)}"
         )
 
         logged_send_message(update, context, msg)
@@ -79,7 +79,8 @@ def whatis(update: Update, context: CallbackContext) -> None:
     except Exception as e:
         logging.error(e)
         logged_send_message(
-            update, context,
-            f'Sorry! An error ocurred when looking for information about {page_to_search}.\n\n'
-            'It may be the case that you misspelled it.'
+            update,
+            context,
+            f"Sorry! An error ocurred when looking for information about {page_to_search}.\n\n"
+            "It may be the case that you misspelled it.",
         )

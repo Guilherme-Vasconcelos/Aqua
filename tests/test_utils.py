@@ -22,15 +22,15 @@ import aqua.utils as u
 
 
 def test_that_empty_string_has_zero_prefix_substrings():
-    assert len(u.prefix_substrings('')) == 0
+    assert len(u.prefix_substrings("")) == 0
 
 
 def test_that_a_string_with_three_letters_has_exactly_three_prefix_substrings():
-    assert len(u.prefix_substrings('bar')) == 3
+    assert len(u.prefix_substrings("bar")) == 3
 
 
 def test_that_aqua_has_prefix_substrings_a_aq_aqu_aqua():
-    assert set(u.prefix_substrings('aqua')) == {'a', 'aq', 'aqu', 'aqua'}
+    assert set(u.prefix_substrings("aqua")) == {"a", "aq", "aqu", "aqua"}
 
 
 # SAFE RANDINT

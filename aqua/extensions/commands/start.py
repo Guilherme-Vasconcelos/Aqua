@@ -22,7 +22,7 @@ from aqua.utils import logged_send_message
 
 
 @authorize
-@ensure_context_number_args(0, 'exact')
+@ensure_context_number_args(0, "exact")
 def start(update: Update, context: CallbackContext) -> None:
-    message_to_send = 'Welcome!'
+    message_to_send = "Welcome!"
     logged_send_message(update, context, message_to_send)
