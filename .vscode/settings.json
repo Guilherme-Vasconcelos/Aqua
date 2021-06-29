@@ -8,5 +8,7 @@
     "python.sortImports.args": [
         "--settings-path",
         "setup.cfg"
-    ]
+    ],
+    "python.linting.mypyEnabled": true,
+    "python.linting.flake8Enabled": true
 }

@@ -15,7 +15,7 @@ Hello! Here you will find extra installation instructions for development.
 
 3. When you are done with your feature, please remember to add it to
 [CHANGELOG.md](CHANGELOG.md). The code also needs to comply with the tests,
-mypy, flake8 and bandit, but those checks can be performed by the workflows.
+mypy, flake8, bandit, isort and black, but those checks can be performed by the workflows.
 
 ### What kind of ideas am I allowed to suggest or add?
 Any ideas that would be good for a personal utility. If you have some problem that
