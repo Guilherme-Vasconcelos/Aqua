@@ -16,6 +16,7 @@
 
 import logging
 from re import sub
+from typing import cast
 from urllib import parse
 
 import requests
@@ -32,7 +33,7 @@ WIKIPEDIA_API_URL = "https://en.wikipedia.org/w/api.php"
 @ensure_context_number_args(1, "min")
 def whatis(update: Update, context: CallbackContext) -> None:
     try:
-        page_to_search = " ".join(context.args)
+        page_to_search = " ".join(cast(list, context.args))
 
         # Instead of directly using the user's input to search the page, first use OpenSearch
         # to find out the exact page's name. This allows case insensitive search.

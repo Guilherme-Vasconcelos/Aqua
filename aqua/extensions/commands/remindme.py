@@ -15,6 +15,7 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 from time import time
+from typing import cast
 
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
@@ -32,7 +33,8 @@ add_to_event_loop_before_start(remindme_job_queue.begin_executing)
 @authorize
 @ensure_context_number_args(3, "min")
 def remindme(update: Update, context: CallbackContext) -> None:
-    args = context.args
+    args = cast(list, context.args)
+
     delay_amount, delay_unit, *reminder = args
 
     multiply_factors = {"minute": 60, "hour": 60 * 60, "day": 60 * 60 * 24}
@@ -59,7 +61,7 @@ def remindme(update: Update, context: CallbackContext) -> None:
 
         return
 
-    def job():
+    def job() -> None:
         text_to_send = f'Hello! Here is your reminder: {" ".join(reminder)}'
         logged_send_message(update, context, text_to_send)
 

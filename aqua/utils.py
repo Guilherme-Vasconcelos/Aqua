@@ -86,7 +86,12 @@ def logged_send_message(update: Update, context: CallbackContext, message: str) 
     message : str
         The message which will be sent.
     """
-    chat_id = update.effective_chat.id
+    chat = update.effective_chat
+    if not chat:
+        logging.critical("Could not send logged message because update's chat is None.")
+        return
+
+    chat_id = chat.id
     logging.info(f"Sending message '{message}' to user '{chat_id}'.")
 
     context.bot.send_message(chat_id=chat_id, text=message)

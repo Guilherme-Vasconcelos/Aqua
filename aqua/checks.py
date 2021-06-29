@@ -91,7 +91,7 @@ def authorize(command: Callable) -> Callable:
     """
 
     @wraps(command)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> None:
         for arg in args:
             if type(arg) == Update:
                 if is_authorized(arg):
