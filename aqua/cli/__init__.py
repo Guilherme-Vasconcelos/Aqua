@@ -15,7 +15,6 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
 from typing import NoReturn
 
 import click

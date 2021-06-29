@@ -16,7 +16,6 @@
 
 import asyncio
 import logging
-
 from typing import Callable, NoReturn
 
 from aqua.exceptions import AquaInterruptedError

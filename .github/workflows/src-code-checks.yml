@@ -43,6 +43,9 @@ jobs:
     - name: Lint with mypy
       run: poetry run mypy .
 
+    - name: Verify imports
+      run: poetry run isort --check aqua/
+
     - name: Run tests
       run: poetry run pytest
 

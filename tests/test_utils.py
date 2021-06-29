@@ -18,7 +18,6 @@ import pytest
 
 import aqua.utils as u
 
-
 # PREFIX SUBSTRINGS
 
 

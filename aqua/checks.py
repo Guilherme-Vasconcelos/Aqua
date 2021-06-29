@@ -15,11 +15,10 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
 from functools import wraps
 from typing import Callable, Literal
 
-from telegram import Update, Chat
+from telegram import Chat, Update
 from telegram.ext.callbackcontext import CallbackContext
 
 from aqua.constants import USER_CHAT_ID

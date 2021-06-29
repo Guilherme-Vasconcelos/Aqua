@@ -16,9 +16,8 @@
 
 import importlib
 import logging
-
 from collections import Counter
-from os.path import dirname, basename, isfile
+from os.path import basename, dirname, isfile
 from typing import Callable, List
 
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater

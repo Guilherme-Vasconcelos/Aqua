@@ -15,12 +15,10 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
 from re import sub
 from urllib import parse
 
 import requests
-
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 

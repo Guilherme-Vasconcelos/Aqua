@@ -17,7 +17,6 @@
 import glob
 import logging
 import secrets
-
 from os.path import join
 from sys import argv
 from typing import List

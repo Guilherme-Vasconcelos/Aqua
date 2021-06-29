@@ -1,0 +1,12 @@
+{
+    "[python]": {
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": false
+        }
+    },
+    "python.sortImports.args": [
+        "--settings-path",
+        "setup.cfg"
+    ]
+}

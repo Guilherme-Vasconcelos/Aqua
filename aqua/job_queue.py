@@ -16,7 +16,6 @@
 
 import asyncio
 import logging
-
 from queue import Queue
 from time import time
 from typing import Callable, NoReturn

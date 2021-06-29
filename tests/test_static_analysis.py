@@ -15,7 +15,6 @@
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
 import ast
-
 from os import popen
 from os.path import basename
 
