@@ -29,7 +29,7 @@ AQUA_EXTENSIONS_FILES = collect_python_files_at(
 ) + [TALK_HANDLER_PATH]
 
 
-def test_auths_for_all_aqua_extensions():
+def test_auths_for_all_aqua_extensions() -> None:
     results = {}
     for _file in AQUA_EXTENSIONS_FILES:
         with open(_file, "r") as f:
@@ -52,7 +52,7 @@ def test_auths_for_all_aqua_extensions():
     assert "FAILED" not in results.values()
 
 
-def test_documentation_for_all_aqua_extensions():
+def test_documentation_for_all_aqua_extensions() -> None:
     with open(HELP_HANDLER_PATH, "r") as f:
         help_src_code = f.read()
 
@@ -69,7 +69,7 @@ def test_documentation_for_all_aqua_extensions():
 
     for node in ast.walk(parsed_ast):
         if isinstance(node, ast.AugAssign):
-            full_text_with_potential_command_docs = node.value.value
+            full_text_with_potential_command_docs = node.value.value  # type: ignore
             for potential_command_match in remaining_commands_to_find_in_help:
                 if potential_command_match in full_text_with_potential_command_docs:
                     # Match

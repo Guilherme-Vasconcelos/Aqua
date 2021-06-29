@@ -22,5 +22,5 @@ from aqua.utils import logged_send_message
 
 
 @authorize
-def talk(update: Update, context: CallbackContext):
+def talk(update: Update, context: CallbackContext) -> None:
     logged_send_message(update, context, "Sorry, I don't have an answer for that yet!")

@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Aqua.  If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Callable, Type, Union
+from typing import Callable, Type, Union, cast
 
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
@@ -26,7 +26,7 @@ from aqua.utils import logged_send_message
 @authorize
 @ensure_context_number_args(1, "min")
 def sort(update: Update, context: CallbackContext) -> None:
-    elements = context.args
+    elements = cast(list, context.args)
 
     # Elements come, by default, as strings. If any of them cannot be converted to
     # int, then sort them as strings.
